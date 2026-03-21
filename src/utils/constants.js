@@ -1,10 +1,10 @@
 export const PERSONAL_INFO = {
     name: 'Hiruni Iresha',
     title: 'Full Stack Developer',
-    email: 'hiruni.iresha@example.com',
-    location: 'Colombo, Sri Lanka',
+    email: 'hiruireshasewwandi@gmail.com',
+    location: 'Embilipitiya, Sri Lanka',
     tagline: 'Passionate about building innovative web applications and delivering exceptional user experiences.',
-    resume: '/Hiruni_Iresha_CV.pdf',
+    resume: "/Hiruni_Iresha_CV.pdf",
     bio: ['I am a dedicated full stack developer with a strong background in both frontend and backend technologies. With over 3 years of experience, I have successfully delivered numerous projects that have helped businesses achieve their goals. I am passionate about learning new technologies and continuously improving my skills to stay ahead in the ever-evolving tech industry.']
 };
 
