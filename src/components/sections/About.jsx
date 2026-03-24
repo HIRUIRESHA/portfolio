@@ -53,17 +53,28 @@ const About = () => {
                 </div>
 
                 <FadeIn delay={300}>
-                    <div className="grid grid-cols-3 gap-8">
+                    <div className="grid grid-cols-2 gap-6">
                         {ABOUT_STATS.map((stat, index) => (
-                            <div key={index} className="relative">
-                                <div className="absolute -left-4 top-0 w-1 h-full bg-linear-to-b from-primary via-primary/50 to-primary/20 rounded-full"></div>
-                                <div className="text-3xl font-normal text-white mb-2 font-mono">
+                            <div
+                                key={index}
+                                className="group relative flex flex-col items-start p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md hover:border-primary/40 transition-all duration-300"
+                                >
+                                {/* Accent line */}
+                                <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-primary via-primary/60 to-transparent rounded-full"></div>
+
+                                {/* Content wrapper */}
+                                <div className="ml-3">
+                                    {/* Value */}
+                                    <div className="text-1xl font-bold text-white font-mono leading-none mb-2">
                                     {stat.value}
-                                </div>
-                                <p className="text-sm text-white/60 leading-snug">
+                                    </div>
+
+                                    {/* Label */}
+                                    <p className="text-sm text-white/60 capitalize">
                                     {stat.label}
-                                </p>
-                            </div>
+                                    </p>
+                                </div>
+                                </div>
                         ))}
                     </div>
                 </FadeIn>
@@ -81,7 +92,7 @@ const About = () => {
 
             {/*right column info grid*/}
             <FadeIn delay={200}>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-4 mt-30">
                     <div className="col-span-2 relative group">
                         <div className="absolute inset-0 bg-linear-to-br from-primary/10 to-primary/5 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-300"></div>
                         <div className="relative bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-primary/30 transition-all duration-300">
@@ -132,16 +143,19 @@ const About = () => {
                                 <div className="grid grid-cols-3 gap-6 text-center">
                                     <div>
                                        <div className="text-2xl font-bold text-primary mb-1">100%</div>
-                                       <div className="text-xs text-white/60">Client Satisfication</div>
+                                            <div className="text-xs text-white/60">Project Dedication</div>
+                                            </div>
+
+                                        <div>
+                                            <div className="text-2xl font-bold text-primary mb-1">24/7</div>
+                                            <div className="text-xs text-white/60">Learning & Improving</div>
+                                        </div>
+
+                                        <div>
+                                            <div className="text-2xl font-bold text-primary mb-1">Fast</div>
+                                            <div className="text-xs text-white/60">Project Delivery</div>
                                     </div>
-                                    <div>
-                                        <div className="text-2xl font-bold text-primary mb-1">24/7</div>
-                                        <div className="text-xs text-white/60">Support Available</div>
-                                    </div>
-                                    <div>
-                                        <div className="text-2xl font-bold text-primary mb-1">Fast</div>
-                                        <div className="text-xs text-white/60">Dilivery Time</div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -153,7 +167,7 @@ const About = () => {
             <FadeIn delay={500}>
                 <div className="flex flex-col items-center gap-8">
                     <div className="text-center">
-                        <h3 classname = "text-2xl font-normal text-white mb-2">
+                        <h3 className = "text-2xl font-normal text-white mb-2">
                             Tech Stacks & Experience
                         </h3>
                             <p className="text-sm text-white/60">

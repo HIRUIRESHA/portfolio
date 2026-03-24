@@ -1,7 +1,7 @@
 import React from 'react'
 import {services} from '../../data/services'
 import * as Icons from 'lucide-react'
-import { Wrench } from 'lucide-react'
+import { Wrench, Code2 } from 'lucide-react'
 import FadeIn from '../animations/FadeIn' 
 
 
@@ -56,7 +56,7 @@ const Services = () => {
                                 </div>
 
                                 <div className="flex-1">
-                                    <h3 className="text-2xl font-semibold text-white mb-3 group-hover:text-primary transition-color duration-300">
+                                    <h3 className="text-2xl font-semibold text-white mb-3 group-hover:text-primary transition-colors duration-300">
                                         {services.title}
                                     </h3>
                                     <p className="text-white/60 leading-relaxed">
@@ -75,19 +75,19 @@ const Services = () => {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                {services.slice(2).map((services, index) => {
+                {services.slice(2).map((service, index) => {
                     const IconComponent = Icons[services.icon] || Icons.Code2;
                     return (
                         <FadeIn key={services.id} delay={100 + index*100}>
                             <div className="group relative bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-primary/30 transition-all duration-300 h-full">
                                 <div className="mb-4">
-                                    <div className="w-1 h-12 rounded-xl bg-primary/20 border border-primary/30 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                    <div className="w-12 h-12 rounded-xl bg-primary/20 border border-primary/30 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                                         <IconComponent className="w-6 h-6 text-primary"/>
                                     </div>
                                 </div>
 
                                 <div>
-                                    <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-[#A8FF8D] transition-color duration-300">
+                                    <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-[#A8FF8D] transition-colors duration-300">
                                         {service.title}
                                     </h3>
                                     <p className="text-sm leading-relaxed line-clamp-3">

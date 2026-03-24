@@ -5,6 +5,7 @@ import { PERSONAL_INFO, STATS } from '../../utils/constants'
 import { scrollToSection } from '../../hooks/useScrollSpy';
 import FadeIn from '../animations/FadeIn'
 import RadialGradientBackground from '../backgrounds/RadialGradientBackground'
+import myImage from "../../assets/my_image.jpeg";
 
 
 const Hero = () => {
@@ -53,7 +54,7 @@ const Hero = () => {
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 max-w-full">
                             {STATS.map((stat, index) => (
                                 <div key={index} className="text-left border-r border-white/50 pr-10 last:border-r-0">
-                                    <div className="text-2xl font-normal text-primary mb-[8px] font-mono">
+                                    <div className="text-1xl font-normal text-primary mb-[8px] font-mono">
                                         {stat.value}
                                     </div>
                                     <p className="text-sm text-white leading-snug">
@@ -75,11 +76,12 @@ const Hero = () => {
 
                                 {/* image container */}
                                 <div className="relative rounded-2xl overflow-hidden m-[1px] h-[calc(100%-2px)]">
+                                    
                                     <img
-                                    src="https://via.placeholder.com/500" // /developer-portrait.png
-                                    alt="Developer at work"
-                                    className="w-full h-full object-cover"
-                                    />
+                                        src={myImage}
+                                        alt="Developer at work"
+                                        className="w-full h-full object-cover"
+                                        />
                                 </div>
 
                                 {/*technology logos*/}
