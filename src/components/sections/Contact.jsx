@@ -3,6 +3,7 @@ import { Mail, MapPin, Github, Linkedin, Twitter, Send, MessageSquare } from 'lu
 import { PERSONAL_INFO, SOCIAL_LINKS } from '../../utils/constants';
 import FadeIn from '../animations/FadeIn';
 
+
 const Contact = () => {
 
   const [formData, setFormData] = useState({
