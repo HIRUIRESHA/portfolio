@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Mail, MapPin, Github, Linkedin, Twitter, Send, MessageSquare } from 'lucide-react';
 import { PERSONAL_INFO, SOCIAL_LINKS } from '../../utils/constants';
 import FadeIn from '../animations/FadeIn';
+import axios from "axios";
 
 
 const Contact = () => {
@@ -20,26 +21,27 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!formData.name || !formData.email || !formData.message) {
-      setStatus({ type: 'error', message: 'Please fill in all fields' });
-      return;
+        setStatus({ type: 'error', message: 'Please fill in all fields' });
+        return;
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      setStatus({ type: 'error', message: 'Please enter a valid email' });
-      return;
+    try {
+        const res = await axios.post("http://localhost:5000/send-email", formData);
+
+        if (res.data.success) {
+        setStatus({ type: 'success', message: 'Message sent successfully!' });
+        setFormData({ name: '', email: '', message: '' });
+        }
+    } catch (error) {
+        console.log(error);
+        setStatus({ type: 'error', message: 'Failed to send message' });
     }
-
-    setStatus({ type: 'success', message: 'Message sent successfully! I\'ll get back to you soon.' });
-    setFormData({ name: '', email: '', message: '' });
-
-    setTimeout(() => setStatus({ type: '', message: '' }), 5000);
-  };
-
+    };
+    
   const socialIcons = {
     github: Github,
     linkedin: Linkedin,
