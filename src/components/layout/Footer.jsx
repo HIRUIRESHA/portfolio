@@ -1,127 +1,141 @@
 import React from 'react';
-import { Github, Linkedin, Twitter, Dribbble, Mail, MapPin, Heart } from 'lucide-react';
+import { Github, Linkedin, Mail, MapPin, Heart, ArrowUp, FileDown } from 'lucide-react';
 import { PERSONAL_INFO, SOCIAL_LINKS, NAV_LINKS } from '../../utils/constants';
 import { scrollToSection } from '../../hooks/useScrollSpy';
 import FadeIn from '../animations/FadeIn';
 
 const Footer = () => {
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
-    const socialIcons = {
-        github: Github,
-        linkedin: Linkedin,
-        twitter: Twitter,
-        dribbble: Dribbble
-    }
+    return (
+        <footer className="relative bg-charcoal text-mist overflow-hidden border-t border-white/10">
+            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
 
-   return (
-    <footer className="relative bg-black overflow-hidden border-t border-white/10">
-        <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 opacity-30 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-primary/10 opacity-30 rounded-full blur-3xl" />
-        </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-12 mb-16">
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-                <FadeIn delay={0}>
-                    <div>
-                        <h3 className="text-3xl font-bold bg-linear-to-r from-primary/80 via-primary to-primary/80 bg-clip-text text-transparent mb-4">
-                            {PERSONAL_INFO.name.split(' ')[0]}
-                        </h3>
-                        <p className="text-white/60 text-sm mb-6 leading-relaxed">
-                            {PERSONAL_INFO.tagline}
-                        </p>
-                        
-                        <div className="space-y-3">
-                            <a 
-                                href={`mailto:${PERSONAL_INFO.email}`} 
-                                className="group flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 hover:border-primary/30 transition-all duration-300"
-                            >
-                                <div className="p-2 bg-primary/10 rounded-lg">
-                                    <Mail className="w-4 h-4 text-primary" />
-                                </div>
-                                <span className="text-white/70 text-sm group-hover:text-white transition-colors">
-                                    {PERSONAL_INFO.email}
-                                </span>
-                            </a>
-
-                            <div className="flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-xl">
-                                <div className="p-2 bg-primary/10 rounded-lg">
-                                    <MapPin className="w-4 h-4 text-primary" />
-                                </div>
-                                <span className="text-white/70 text-sm">
-                                    {PERSONAL_INFO.location}
-                                </span>
+                    {/* Brand Column */}
+                    <div className="space-y-4 lg:col-span-2">
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br from-accent to-accent-2 text-white font-display font-bold text-base shadow-sm">
+                                HI
+                            </div>
+                            <div>
+                                <h3 className="font-display text-lg font-bold text-white">
+                                    {PERSONAL_INFO.name}
+                                </h3>
+                                <p className="text-xs text-mist/60 font-mono">
+                                    Full Stack Developer &amp; Software Engineer
+                                </p>
                             </div>
                         </div>
+
+                        <p className="text-sm text-mist/70 leading-relaxed max-w-md">
+                            {PERSONAL_INFO.tagline}
+                        </p>
+
+                        <div className="pt-2 flex items-center gap-4 text-xs text-mist/60 font-mono">
+                            <span className="flex items-center gap-1.5">
+                                <MapPin className="w-3.5 h-3.5 text-accent-2" />
+                                {PERSONAL_INFO.location}
+                            </span>
+                            <span>•</span>
+                            <span className="text-emerald-400">
+                                Open for Opportunities
+                            </span>
+                        </div>
                     </div>
-                </FadeIn>
 
-                <FadeIn delay={100}>
-                <div>
-                    <h4 className="text-white font-semibold mb-6 text-lg">Quick Links</h4>
-                    <ul className="space-y-3">
-                        {NAV_LINKS.map((link) => (
-                            <li key={link.id}>
-                                <button
-                                    onClick={() => scrollToSection(link.id)}
-                                    className="group flex items-center gap-2 text-white/60 hover:text-primary transition-all duration-300"
-                                >
-                                    <div className="w-1.5 h-1.5 rounded-full bg-white/30 group-hover:bg-primary group-hover:w-2 transition-all duration-300" />
-                                    <span className="text-sm">{link.label}</span>
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
+                    {/* Navigation Links Column */}
+                    <div>
+                        <h4 className="text-xs font-mono uppercase tracking-widest text-mist/50 mb-5 font-semibold">
+                            Quick Navigation
+                        </h4>
+                        <ul className="space-y-2.5">
+                            {NAV_LINKS.map((link) => (
+                                <li key={link.id}>
+                                    <button
+                                        onClick={() => scrollToSection(link.id)}
+                                        className="text-sm text-mist/70 hover:text-white transition-colors duration-200 cursor-pointer"
+                                    >
+                                        {link.label}
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Social & Resume Column */}
+                    <div>
+                        <h4 className="text-xs font-mono uppercase tracking-widest text-mist/50 mb-5 font-semibold">
+                            Connect &amp; Documents
+                        </h4>
+
+                        <div className="flex gap-2.5 mb-5">
+                            <a
+                                href={SOCIAL_LINKS.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-10 h-10 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-mist hover:text-accent transition-colors"
+                                aria-label="GitHub Profile"
+                            >
+                                <Github className="w-4 h-4" />
+                            </a>
+                            <a
+                                href={SOCIAL_LINKS.linkedin}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-10 h-10 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-mist hover:text-accent transition-colors"
+                                aria-label="LinkedIn Profile"
+                            >
+                                <Linkedin className="w-4 h-4" />
+                            </a>
+                            <a
+                                href={`mailto:${PERSONAL_INFO.email}`}
+                                className="w-10 h-10 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-mist hover:text-accent transition-colors"
+                                aria-label="Send Email"
+                            >
+                                <Mail className="w-4 h-4" />
+                            </a>
+                        </div>
+
+                        <a
+                            href={PERSONAL_INFO.resume}
+                            download="Hiruni_Iresha_CV.pdf"
+                            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-accent text-white text-xs font-semibold transition-all duration-200"
+                        >
+                            <FileDown className="w-3.5 h-3.5" />
+                            <span>Download Full Resume</span>
+                        </a>
+                    </div>
+
                 </div>
-            </FadeIn>
 
-            <FadeIn delay={200}>
-                <div>
-                    <h4 className="text-white font-semibold mb-6 text-lg">Connect With Me</h4>
-                    <p className="text-white/60 text-sm mb-6 leading-relaxed">
-                        Let's connect and create something amazing together.
+                {/* Bottom Bar with Back to Top */}
+                <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-mist/50">
+                    <p>
+                        © {new Date().getFullYear()} {PERSONAL_INFO.name}. All rights reserved.
                     </p>
-                    <div className="flex flex-wrap gap-3">
-                        {Object.entries(SOCIAL_LINKS).map(([platform, url]) => {
-                            const Icon = socialIcons[platform];
-                            return Icon ? (
-                                <a
-                                    key={platform}
-                                    href={url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="group relative p-4 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 hover:border-primary/50 hover:scale-110 transition-all duration-300"
-                                    aria-label={`Connect on ${platform}`}
-                                >
-                                    <Icon className="w-5 h-5 text-white/60 group-hover:text-primary transition-colors duration-300" />
-                                    <div className="absolute inset-0 bg-linear-to-br from-primary/0 to-primary/0 group-hover:from-primary/10 group-hover:to-primary/5 rounded-xl transition-all duration-300 pointer-events-none"/>
-                                </a>
-                            ) : null;
-                        })}
+
+                    <div className="flex items-center gap-6">
+                        <p className="flex items-center gap-1.5">
+                            Engineered with <Heart className="w-3 h-3 text-red-400 fill-red-400" /> using React, Vite &amp; Tailwind CSS
+                        </p>
+
+                        <button
+                            onClick={scrollToTop}
+                            className="p-2 rounded-xl bg-white/5 hover:bg-white/15 text-mist transition-colors cursor-pointer"
+                            aria-label="Back to top"
+                        >
+                            <ArrowUp className="w-4 h-4" />
+                        </button>
                     </div>
                 </div>
-            </FadeIn>
 
-
-
-                </div>
-                <FadeIn delay={300}>
-                <div className="pt-8 border-t border-white/10">
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                        <p className="text-white/50 text-sm">
-                            © {new Date().getFullYear()} {PERSONAL_INFO.name}.All rights reserved.
-                        </p>
-                        <p className="flex items-center gap-2 text-white/50 text-sm">
-                            Built with <Heart className="w-4 h-4 text-primary fill-primary animate-pulse" /> using React & Tailwind CSS
-                        </p>
-                    </div>
-                </div>
-            </FadeIn>
-        </div>
-    </footer>
-
-
-);
-}
+            </div>
+        </footer>
+    );
+};
 
 export default Footer;

@@ -1,159 +1,159 @@
 import React from 'react';
-import { skills } from '../../data/skills';
-import * as Icons from 'lucide-react';
+import { skillCategories, competencies } from '../../data/skills';
 import FadeIn from '../animations/FadeIn';
+import { Cpu, Globe, KeyRound, CheckCircle2 } from 'lucide-react';
+import {
+    SiReact,
+    SiJavascript,
+    SiTailwindcss,
+    SiNextdotjs,
+    SiHtml5,
+    SiRedux,
+    SiNodedotjs,
+    SiExpress,
+    SiSpringboot,
+    SiDocker,
+    SiJenkins,
+    SiTerraform,
+    SiMongodb,
+    SiMysql,
+    SiFlutter,
+    SiFirebase,
+    SiGithub,
+    SiPostman,
+    SiVite,
+    SiFigma
+} from 'react-icons/si';
+import { FaAws } from 'react-icons/fa';
+
+const iconMap = {
+    SiReact,
+    SiJavascript,
+    SiTailwindcss,
+    SiNextdotjs,
+    SiHtml5,
+    SiRedux,
+    SiNodedotjs,
+    SiExpress,
+    SiSpringboot,
+    SiDocker,
+    SiJenkins,
+    SiTerraform,
+    FaAws,
+    SiMongodb,
+    SiMysql,
+    SiFlutter,
+    SiFirebase,
+    SiGithub,
+    SiPostman,
+    SiVite,
+    SiFigma,
+    Globe,
+    KeyRound
+};
 
 const Skills = () => {
-  const skillCategories = {
-    'Frontend Development': [
-      skills.find(s => s.name === 'React.js'),
-      skills.find(s => s.name === 'JavaScript'),
-      skills.find(s => s.name === 'TypeScript'),
-      skills.find(s => s.name === 'Next.js'),
-      skills.find(s => s.name === 'Tailwind CSS'),
-      skills.find(s => s.name === 'Redux'),
-    ].filter(Boolean),
+    return (
+        <section id="skills" className="relative py-24 sm:py-32 bg-surface-2/30 overflow-hidden border-y border-border/40">
+            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    'Backend & APIs': [
-      skills.find(s => s.name === 'Node.js'),
-      skills.find(s => s.name === 'REST APIs'),
-    ].filter(Boolean),
+                {/* Section Header */}
+                <FadeIn delay={0}>
+                    <div className="mb-16 max-w-3xl">
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface border border-border text-xs font-mono text-ink-soft mb-4">
+                            <Cpu className="w-3.5 h-3.5 text-accent" />
+                            <span>04 / TECHNICAL TOOLKIT</span>
+                        </div>
+                        <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-ink tracking-tight mb-4">
+                            Technologies, languages &amp; <span className="text-gradient">frameworks</span>.
+                        </h2>
+                        <p className="text-base sm:text-lg text-ink-soft leading-relaxed">
+                            A comprehensive overview of my current tech stack — verified through hands-on project
+                            deliveries across frontend, backend, cloud deployment, and databases.
+                        </p>
+                    </div>
+                </FadeIn>
 
-    'Tools & Others': [
-      skills.find(s => s.name === 'Git & Github'),
-      skills.find(s => s.name === 'Responsive Design'),
-      skills.find(s => s.name === 'Figma'),
-      skills.find(s => s.name === 'Vite'),
-    ].filter(Boolean),
-  };
+                {/* Skills Categories Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-16">
+                    {skillCategories.map((cat, idx) => (
+                        <FadeIn key={cat.name} delay={idx * 100}>
+                            <div className="p-6 sm:p-8 rounded-3xl bg-surface border border-border glass-card shadow-sm hover:border-accent/40 transition-all duration-300 h-full flex flex-col justify-between">
+                                <div>
+                                    <div className="flex items-center justify-between mb-2">
+                                        <h3 className="font-display text-xl font-bold text-ink">
+                                            {cat.name}
+                                        </h3>
+                                        <span className="text-xs font-mono text-accent font-semibold">
+                                            {String(cat.skills.length).padStart(2, '0')} Tools
+                                        </span>
+                                    </div>
+                                    <p className="text-xs sm:text-sm text-ink-soft mb-6">
+                                        {cat.description}
+                                    </p>
 
-  const getProficiencyLevel = (level) => {
-    const levels = {
-      Expert: 95,
-      Advanced: 80,
-      Intermediate: 65,
-    };
-    return levels[level] || 50;
-  };
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                        {cat.skills.map((skill) => {
+                                            const IconComp = iconMap[skill.icon] || Cpu;
+                                            const isAdv = skill.level === 'Advanced';
+                                            return (
+                                                <div
+                                                    key={skill.name}
+                                                    className="p-3 rounded-2xl bg-surface-2/60 border border-border/70 hover:border-accent/30 hover:bg-surface-2 transition-colors flex items-center gap-3"
+                                                >
+                                                    <div className="w-9 h-9 rounded-xl bg-surface border border-border flex items-center justify-center shrink-0">
+                                                        <IconComp className="w-4 h-4 text-accent" />
+                                                    </div>
+                                                    <div className="min-w-0 flex-1">
+                                                        <div className="flex items-center justify-between gap-1">
+                                                            <span className="text-xs font-bold text-ink truncate">
+                                                                {skill.name}
+                                                            </span>
+                                                            <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded-md ${
+                                                                isAdv ? 'bg-accent/10 text-accent' : 'bg-surface-2 text-ink-soft'
+                                                            }`}>
+                                                                {skill.level}
+                                                            </span>
+                                                        </div>
+                                                        <span className="text-[11px] text-ink-soft truncate block">
+                                                            {skill.highlight}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
+                        </FadeIn>
+                    ))}
+                </div>
 
-  const getLevelColor = (level) => {
-    const colors = {
-      Expert: 'text-[#8DFF69] bg-[#8DFF69]/20 border-[#8DFF69]/30',
-      Advanced: 'text-cyan-400 bg-cyan-500/20 border-cyan-500/30',
-      Intermediate: 'text-emerald-400 bg-emerald-500/20 border-emerald-500/30',
-    };
-    return colors[level] || 'text-gray-400 bg-gray-500/20 border-gray-500/30';
-  };
+                {/* Core Competencies Row */}
+                <FadeIn delay={200}>
+                    <div className="p-8 rounded-3xl bg-surface border border-border shadow-sm">
+                        <h3 className="font-display text-lg font-bold text-ink mb-6 flex items-center gap-2">
+                            <CheckCircle2 className="w-5 h-5 text-accent" />
+                            Core Engineering Practices &amp; Standards
+                        </h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                            {competencies.map((comp, i) => (
+                                <div key={i} className="space-y-1.5">
+                                    <div className="font-display font-bold text-sm text-ink">
+                                        {comp.title}
+                                    </div>
+                                    <div className="text-xs text-ink-soft leading-relaxed">
+                                        {comp.description}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </FadeIn>
 
-  return (
-    <section id="skills" className="relative py-20 bg-black overflow-hidden">
-
-      {/* BACKGROUND BLOBS */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl opacity-50" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl opacity-50" />
-      </div>
-
-      {/* CONTENT */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        <FadeIn delay={100}>
-          <div className="text-center mb-16">
-
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/30 rounded-full mb-6">
-              <Icons.Sparkles className="w-4 h-4 text-primary" />
-              <span className="text-sm text-primary font-medium">
-                My Expertise
-              </span>
             </div>
-
-            <h2 className="text-4xl lg:text-5xl font-normal text-white mb-4">
-              Skills & Technologies
-            </h2>
-
-            <p className="text-lg text-white/60 max-w-2xl mx-auto">
-              A comprehensive overview of my technical skills and proficiency levels
-            </p>
-
-          </div>
-        </FadeIn>
-
-        {/* SKILLS GRID */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
-          {Object.entries(skillCategories).map(([category, categorySkills], categoryIndex) => (
-            <FadeIn key={category} delay={categoryIndex * 100}>
-
-              <div className="relative bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-primary/30 transition-all duration-300 group">
-
-                {/* CATEGORY HEADER */}
-                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-white/10">
-                  <div className="w-1 h-8 bg-gradient-to-b from-primary/30 to-primary/10 rounded-full" />
-                  <h3 className="text-xl font-medium text-white">{category}</h3>
-                </div>
-
-                {/* SKILLS */}
-                <div className="space-y-6">
-
-                  {categorySkills.map((skill) => {
-                    const IconComponent = Icons[skill.icon] || Icons.Code2;
-                    const proficiency = getProficiencyLevel(skill.level);
-
-                    return (
-                      <div key={skill.id} className="space-y-2">
-
-                        <div className="flex items-center justify-between">
-
-                          <div className="flex items-center gap-3">
-
-                            <div className="p-2 bg-white/5 rounded-lg">
-                              <IconComponent className="w-4 h-4 text-primary" />
-                            </div>
-
-                            <div>
-                              <div className="text-sm font-medium text-white">
-                                {skill.name}
-                              </div>
-                              <div className="text-xs text-white/50">
-                                {skill.experience}
-                              </div>
-                            </div>
-
-                          </div>
-
-                          <span className={`text-xs px-2 py-1 rounded-full border ${getLevelColor(skill.level)}`}>
-                            {skill.level}
-                          </span>
-
-                        </div>
-
-                        {/* PROGRESS BAR */}
-                        <div className="relative h-1.5 bg-white/5 rounded-full overflow-hidden">
-                          <div
-                            className="absolute top-0 left-0 h-full bg-gradient-to-r from-primary/30 to-primary/80 rounded-full transition-all duration-1000 ease-out"
-                            style={{ width: `${proficiency}%` }}
-                          />
-                        </div>
-
-                      </div>
-                    );
-                  })}
-
-                </div>
-
-                {/* HOVER EFFECT */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-primary/5 group-hover:from-primary/5 rounded-2xl transition-all duration-300 pointer-events-none" />
-
-              </div>
-
-            </FadeIn>
-          ))}
-
-        </div>
-
-      </div>
-    </section>
-  );
+        </section>
+    );
 };
 
 export default Skills;

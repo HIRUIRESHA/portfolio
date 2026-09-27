@@ -1,209 +1,105 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { categories, projects } from '../../data/projects';
-import {
-  Briefcase,
-  Target,
-  Globe,
-  Palette,
-  Zap,
-  ChevronLeft,
-  ChevronRight,
-} from 'lucide-react';
-
 import ProjectCard from '../ui/ProjectCard';
+import ProjectModal from '../ui/ProjectModal';
 import FadeIn from '../animations/FadeIn';
+import { FolderGit2 } from 'lucide-react';
 
 const Projects = () => {
-  const [activeCategory, setActiveCategory] = useState('All');
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const scrollContainerRef = useRef(null);
+    const [activeCategory, setActiveCategory] = useState('All');
+    const [selectedProject, setSelectedProject] = useState(null);
 
-  const filteredProjects =
-    activeCategory === 'All'
-      ? projects
-      : projects.filter((project) => project.category === activeCategory);
+    const filteredProjects =
+        activeCategory === 'All'
+            ? projects
+            : projects.filter((project) => project.category === activeCategory);
 
-  const handleCategoryChange = (category) => {
-    setActiveCategory(category);
-    setCurrentIndex(0);
+    return (
+        <section id="projects" className="relative py-24 sm:py-32 bg-bg overflow-hidden">
+            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollTo({
-        left: 0,
-        behavior: 'smooth',
-      });
-    }
-  };
+                {/* Section Header */}
+                <FadeIn delay={0}>
+                    <div className="mb-14 max-w-3xl">
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-2 border border-border text-xs font-mono text-ink-soft mb-4">
+                            <FolderGit2 className="w-3.5 h-3.5 text-accent" />
+                            <span>03 / SELECTED WORK</span>
+                        </div>
+                        <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-ink tracking-tight mb-4">
+                            Featured <span className="text-gradient">engineering projects</span>.
+                        </h2>
+                        <p className="text-base sm:text-lg text-ink-soft leading-relaxed">
+                            A curated showcase of full-stack platforms, cloud infrastructure pipelines,
+                            and mobile applications built with real-world architectural considerations.
+                        </p>
+                    </div>
+                </FadeIn>
 
-  const scrollToIndex = (index) => {
-    setCurrentIndex(index);
+                {/* Interactive Category Filter Pills */}
+                <FadeIn delay={100}>
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-12">
+                        {categories.map((category) => {
+                            const isActive = activeCategory === category;
+                            const count =
+                                category === 'All'
+                                    ? projects.length
+                                    : projects.filter((p) => p.category === category).length;
 
-    if (scrollContainerRef.current) {
-      const container = scrollContainerRef.current;
-      const cardWidth = container.offsetWidth / 3;
+                            return (
+                                <button
+                                    key={category}
+                                    onClick={() => setActiveCategory(category)}
+                                    className={`px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 cursor-pointer flex items-center gap-2 ${
+                                        isActive
+                                            ? 'bg-accent text-white shadow-md shadow-accent/25'
+                                            : 'bg-surface text-ink-soft border border-border hover:border-accent/40 hover:text-ink'
+                                    }`}
+                                >
+                                    <span>{category}</span>
+                                    <span
+                                        className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono ${
+                                            isActive
+                                                ? 'bg-white/20 text-white'
+                                                : 'bg-surface-2 text-ink-soft'
+                                        }`}
+                                    >
+                                        {count}
+                                    </span>
+                                </button>
+                            );
+                        })}
+                    </div>
+                </FadeIn>
 
-      container.scrollTo({
-        left: cardWidth * index,
-        behavior: 'smooth',
-      });
-    }
-  };
+                {/* Project Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                    {filteredProjects.map((project, index) => (
+                        <FadeIn key={project.id} delay={100 + (index % 3) * 80}>
+                            <ProjectCard
+                                project={project}
+                                onSelect={(p) => setSelectedProject(p)}
+                            />
+                        </FadeIn>
+                    ))}
+                </div>
 
-  const nextSlide = () => {
-    const maxIndex = Math.max(0, filteredProjects.length - 3);
-    const newIndex = Math.min(currentIndex + 1, maxIndex);
-    scrollToIndex(newIndex);
-  };
+                {filteredProjects.length === 0 && (
+                    <div className="text-center py-16 text-ink-soft text-sm">
+                        No projects found in this category.
+                    </div>
+                )}
 
-  const prevSlide = () => {
-    const newIndex = Math.max(currentIndex - 1, 0);
-    scrollToIndex(newIndex);
-  };
+                {/* Interactive Project Details Modal */}
+                {selectedProject && (
+                    <ProjectModal
+                        project={selectedProject}
+                        onClose={() => setSelectedProject(null)}
+                    />
+                )}
 
-  const categoryIcons = {
-    All: Target,
-    'Web Apps': Globe,
-    'UI Components': Palette,
-    'Full Stack': Zap,
-  };
-
-  return (
-    <section id="projects" className="relative py-20 bg-black overflow-hidden">
-
-      {/* background blobs */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/3 right-0 w-96 h-96 bg-primary/20 opacity-20 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/3 left-0 w-96 h-96 bg-primary/20 opacity-20 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 right-1/3 w-96 h-96 bg-primary/10 opacity-20 rounded-full blur-3xl" />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        {/* HEADER */}
-        <FadeIn delay={0}>
-          <div className="text-center mb-12">
-
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/30 rounded-full mb-6">
-              <Briefcase className="w-4 h-4 text-primary" />
-              <span className="text-sm text-primary font-medium">My Work</span>
             </div>
-
-            <h2 className="text-4xl lg:text-5xl text-white mb-4">
-              Featured Projects
-            </h2>
-
-            <p className="text-lg text-white/60 max-w-2xl mx-auto">
-              Showcasing my best work and achievements
-            </p>
-
-          </div>
-        </FadeIn>
-
-        {/* CATEGORY FILTER */}
-        <FadeIn delay={100}>
-          <div className="flex flex-wrap justify-center gap-3 mb-16">
-
-            {categories.map((category) => {
-              const Icon = categoryIcons[category] || Target;
-
-              return (
-                <button
-                  key={category}
-                  onClick={() => handleCategoryChange(category)}
-                  className={`group relative px-6 py-3 rounded-full font-medium transition-all duration-300 ${
-                    activeCategory === category
-                      ? 'text-white'
-                      : 'text-white/60 hover:text-white'
-                  }`}
-                >
-                  <div
-                    className={`absolute inset-0 rounded-full transition-all duration-300 ${
-                      activeCategory === category
-                        ? 'bg-primary/10 opacity-100'
-                        : 'bg-white/5 border border-white/10 group-hover:bg-white/10'
-                    }`}
-                  />
-
-                  <div className="relative flex items-center gap-2">
-                    <Icon className="w-4 h-4" />
-                    <span className="text-sm">{category}</span>
-                  </div>
-
-                  {activeCategory === category && (
-                    <div className="absolute inset-0 rounded-full bg-primary blur-xl opacity-40 -z-10" />
-                  )}
-                </button>
-              );
-            })}
-          </div>
-        </FadeIn>
-
-        {/* CAROUSEL */}
-        <FadeIn delay={200}>
-          <div className="relative">
-
-            <div
-              ref={scrollContainerRef}
-              className="overflow-x-auto scroll-smooth snap-x snap-mandatory hide-scrollbar"
-            >
-              <div className="flex gap-6 pb-4">
-                {filteredProjects.map((project) => (
-                  <div
-                    key={project.id}
-                    className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] shrink-0 snap-start"
-                  >
-                    <ProjectCard project={project} />
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* ARROWS */}
-            {filteredProjects.length > 3 && (
-              <>
-                <button
-                  onClick={prevSlide}
-                  disabled={currentIndex === 0}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 rounded-full flex items-center justify-center z-10 disabled:opacity-40"
-                >
-                  <ChevronLeft className="w-6 h-6 text-white" />
-                </button>
-
-                <button
-                  onClick={nextSlide}
-                  disabled={currentIndex >= filteredProjects.length - 3}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/10 rounded-full flex items-center justify-center z-10 disabled:opacity-40"
-                >
-                  <ChevronRight className="w-6 h-6 text-white" />
-                </button>
-              </>
-            )}
-
-            {/* DOTS */}
-            {filteredProjects.length > 3 && (
-              <div className="flex justify-center gap-2 mt-8">
-                {Array.from({
-                  length: Math.max(0, filteredProjects.length - 2),
-                }).map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => scrollToIndex(index)}
-                    className={`rounded-full transition-all duration-300 ${
-                      index === currentIndex
-                        ? 'bg-primary w-6 h-2'
-                        : 'bg-white/30 w-2 h-2'
-                    }`}
-                  />
-                ))}
-              </div>
-            )}
-
-          </div>
-        </FadeIn>
-
-      </div>
-    </section>
-  );
+        </section>
+    );
 };
 
 export default Projects;

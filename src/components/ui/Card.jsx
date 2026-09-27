@@ -3,7 +3,7 @@ import React from 'react';
 const Card = ({ children, className = '' }) => {
   return (
     <div
-      className={`bg-white/5 border border-white/10 rounded-2xl p-6 shadow-lg hover:border-white/20 transition-all duration-300 ${className}`}
+      className={`clip-card bg-surface border border-border hover:border-accent/30 transition-colors duration-300 p-6 ${className}`}
     >
       {children}
     </div>

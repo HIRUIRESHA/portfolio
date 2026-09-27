@@ -1,114 +1,89 @@
-import React from 'react'
-import {services} from '../../data/services'
-import * as Icons from 'lucide-react'
-import { Wrench, Code2 } from 'lucide-react'
-import FadeIn from '../animations/FadeIn' 
+import React from 'react';
+import { services } from '../../data/services';
+import FadeIn from '../animations/FadeIn';
+import { Layout, Server, Cloud, Smartphone, Briefcase, CheckCircle2 } from 'lucide-react';
 
+const iconMap = {
+    Layout,
+    Server,
+    Cloud,
+    Smartphone
+};
 
 const Services = () => {
-  return <section id= "services" className="relative py-20 bg-black overflow-hidden">
-    <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl"/>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl"/>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary/10 opacity-20 rounded-full blur-3xl"/>
-    </div>
+    return (
+        <section id="services" className="relative py-24 sm:py-32 bg-bg overflow-hidden">
+            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-            backgroundImage:
-                `
-                linear-gradient(to right, white 1px, transparent 1px)
-                linear-gradient(to bottom, white 1px, transparent 1px)
-                `,
-                backgroundSize: '30px 30px'
-            
-        }}
-        />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <FadeIn delay={0}>
-                <div className="text-center mb-16">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/30 rounded-full mb-6">
-                        <Wrench className="w-4 h-4 text-primary"/>
-                        <span className="text-sm text-primary font-medium tracking-wider uppercase">What I Offer</span>
+                {/* Section Header */}
+                <FadeIn delay={0}>
+                    <div className="mb-16 max-w-3xl">
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-2 border border-border text-xs font-mono text-ink-soft mb-4">
+                            <Briefcase className="w-3.5 h-3.5 text-accent" />
+                            <span>05 / WHAT I DELIVER</span>
+                        </div>
+                        <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-ink tracking-tight mb-4">
+                            Services &amp; <span className="text-gradient">engineering capabilities</span>.
+                        </h2>
+                        <p className="text-base sm:text-lg text-ink-soft leading-relaxed">
+                            How I can contribute to projects and engineering teams — from architecting
+                            new applications from scratch to cloud deployments and system integration.
+                        </p>
                     </div>
+                </FadeIn>
 
-                    <h2 className="text-4xl lg:text-5xl font-normal text-white mb-4 max-w-2xl mx-auto">
-                        Built For innovation.Designed for results.
-                    </h2>
-                    <p className="text-lg text-white/60 max-w-xl mx-auto">
-                        Comprehensive solutions to transform your ideas into exceptional digital experience.
-                    </p>
+                {/* Services 2x2 Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+                    {services.map((service, index) => {
+                        const IconComponent = iconMap[service.icon] || Layout;
+                        return (
+                            <FadeIn key={service.id} delay={100 + index * 80}>
+                                <div className="p-8 rounded-3xl bg-surface border border-border hover:border-accent/40 glass-card shadow-sm hover:shadow-xl hover:shadow-accent/5 transition-all duration-300 flex flex-col justify-between h-full group">
+                                    <div>
+                                        <div className="w-12 h-12 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center mb-6 group-hover:scale-105 group-hover:bg-accent/15 transition-all duration-200">
+                                            <IconComponent className="w-6 h-6 text-accent" />
+                                        </div>
+
+                                        <h3 className="font-display text-xl sm:text-2xl font-bold text-ink mb-3 group-hover:text-accent transition-colors duration-200">
+                                            {service.title}
+                                        </h3>
+                                        <p className="text-sm text-ink-soft leading-relaxed mb-6">
+                                            {service.description}
+                                        </p>
+
+                                        {/* Deliverables Checklist */}
+                                        <div className="space-y-2 mb-6">
+                                            {service.features.map((feat, fIdx) => (
+                                                <div key={fIdx} className="flex items-start gap-2.5">
+                                                    <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                                                    <span className="text-xs sm:text-sm text-ink-soft">
+                                                        {feat}
+                                                    </span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Tech Tags */}
+                                    <div className="pt-4 border-t border-border/80 flex flex-wrap gap-1.5">
+                                        {service.tags.map((tag, tIdx) => (
+                                            <span
+                                                key={tIdx}
+                                                className="px-2.5 py-1 rounded-lg bg-surface-2 text-ink-soft text-[11px] font-mono"
+                                            >
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            </FadeIn>
+                        );
+                    })}
                 </div>
-            </FadeIn>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                {services.slice(0, 2).map((services, index) => {
-                    const IconComponent = Icons[services.icon] || Icons.Code2;
-                    return (
-                        <FadeIn key={services.id} delay={100 + index*100}>
-                            <div className="group relative bg-white/5 border border-white/10 rounded-3xl p-8 hover:border-primary/30 transition-all duration-300 h-full min-h-[280px] flex flex-col">
-                                <div className="mb-6">
-                                    <div className="w-16 h-16 rounded-2xl bg-primary/20 border border-primary/30 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                                        <IconComponent className="w-8 h-8 text-primary"/>
-                                    </div>
-                                </div>
-
-                                <div className="flex-1">
-                                    <h3 className="text-2xl font-semibold text-white mb-3 group-hover:text-primary transition-colors duration-300">
-                                        {services.title}
-                                    </h3>
-                                    <p className="text-white/60 leading-relaxed">
-                                        {services.description}
-                                    </p>
-                                </div>
-
-                                <div className="absolute inset-0 bg-linear-to-br from-primary/0 to-primary/0 group-hover:to-primary/5 rounded-3xl transition-all duration-300 pointer-events-none"/>
-
-
-                            </div>
-                        </FadeIn>
-
-                    );
-                })}
             </div>
+        </section>
+    );
+};
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                {services.slice(2).map((service, index) => {
-                    const IconComponent = Icons[services.icon] || Icons.Code2;
-                    return (
-                        <FadeIn key={services.id} delay={100 + index*100}>
-                            <div className="group relative bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-primary/30 transition-all duration-300 h-full">
-                                <div className="mb-4">
-                                    <div className="w-12 h-12 rounded-xl bg-primary/20 border border-primary/30 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                                        <IconComponent className="w-6 h-6 text-primary"/>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-[#A8FF8D] transition-colors duration-300">
-                                        {service.title}
-                                    </h3>
-                                    <p className="text-sm leading-relaxed line-clamp-3">
-                                        {services.description}
-                                    </p>
-                                </div>
-
-                                <div className="absolute inset-0 bg-linear-to-br from-primary/0 to-primary/0 group-hover:from-primary/5 group-hover:to-primary/5 rounded-2xl transition-all duration-300 pointer-events-none"/>
-
-
-                            </div>
-                        </FadeIn>
-
-                    );
-                })}
-            </div>
-
-        </div>
-    
-  </section>
-  
-}
-
-export default Services
+export default Services;
