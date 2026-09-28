@@ -191,9 +191,7 @@ const Hero = () => {
                                                 Undergraduate Developer
                                             </div>
                                         </div>
-                                        <span className="px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md text-[10px] font-mono border border-white/20">
-                                            SLIIT
-                                        </span>
+                                        
                                     </div>
                                 </div>
 
